@@ -1,0 +1,35 @@
+<h1>Workout</h1>
+
+<h2>Exercises</h2>
+<% @exercises_in_workout.each do |exercise| %>
+  <p><%= exercise %>
+  <table border="1px solid black">
+    <tr>
+      <th>Set</th>
+      <th>Weight (lbs)</th>
+      <th>Reps</th>
+      <th>Volume (lbs)</th>
+    </tr>
+
+    <% Exercise.where({ :movement_id => exercise }).each do |set| %>
+    <tr>
+      <td><%= set.set %></td>
+      <td><%= set.weight %></td>
+      <td><%= set.reps %></td>
+      <td><%= set.volume %></td>
+    </tr>
+    <% end %>
+  </table>
+    
+  </ol>
+<% end %>
+
+<h2>Volume</h2>
+
+<% @exercises_in_workout.each do |exercise| %>
+  <p><%= exercise %></p>
+  <ul>
+   <li>Volume today: <%= Exercise.where({ :movement_id => exercise }).sum(:volume) %></p></li>
+   <li>Volume last time (date): </li>
+  </ul>
+<% end %>
