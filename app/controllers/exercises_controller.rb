@@ -24,8 +24,9 @@ class ExercisesController < ApplicationController
   def delete_exercise
     exercise_id = params.fetch("path_id")
     exercise = Exercise.where(:id => exercise_id).first
-    exercise.destroy
+    workout_id = exercise.workout_id
 
-    redirect_to("/workouts")
+    exercise.destroy
+    redirect_to("/workouts/#{workout_id}")
   end
 end
