@@ -1,6 +1,13 @@
 <h1><%= @workout.name %></h1>
 <p>Completed on: <%= @workout.completed_on %></p>
 
+<h2>Add Exercise</h1>
+<form action="/add_new_workout" method="post">
+  <input type="hidden" name="param_workout_id" id="workout_id" value="<%= @workout.id %>">
+  <label for="exercise">Select an exercise:</label>
+  <input type="text" name="exercise" id="param_exercise">
+</form>
+
 <h2>Exercises</h2>
 <% @exercises_in_workout.each do |exercise| %>
   <p><%= exercise %>
@@ -24,13 +31,6 @@
     
   </ol>
 <% end %>
-
-<h2>Add Exercise</h1>
-<form action="/add_new_workout" method="post">
-  <input type="hidden" name="param_workout_id" id="workout_id" value="<%= @workout.id %>">
-  <label for="exercise">Select an exercise:</label>
-  <input type="text" name="exercise" id="param_exercise">
-</form>
 
 <h2>Volume</h2>
 
