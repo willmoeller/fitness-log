@@ -2,10 +2,37 @@
 <p>Completed on: <%= @workout.completed_on %></p>
 
 <h2>Add Exercise</h1>
-<form action="/add_new_workout" method="post">
+<form action="/add_exercise" method="post">
   <input type="hidden" name="param_workout_id" id="workout_id" value="<%= @workout.id %>">
+  
   <label for="exercise">Select an exercise:</label>
-  <input type="text" name="exercise" id="param_exercise">
+  <select name="param_movement_id" id="movement_id">
+    <% Movement.all.each do |movement| %>
+      <option value="<%= movement.id %>"><%= movement.name %></option>
+    <% end %>
+  </select>
+
+  <div>
+    <label for="weight">Weight (lbs)</label>
+    <input type="number" name="param_weight" id="weight">
+  </div>
+
+  <div>
+    <label for="reps">Reps</label>
+    <input type="number" name="param_reps" id="reps">
+  </div>
+
+  <div>
+    <label for="set">Set number</label>
+    <input type="number" name="param_set" id="set">
+  </div>
+
+  <div>
+    <label for="notes">Notes</label>
+    <input type="text" name="param_notes" id="notes">
+  </div>
+
+  <button type="submit">Add Exercise</button>
 </form>
 
 <h2>Exercises</h2>
@@ -25,6 +52,7 @@
       <td><%= set.weight %></td>
       <td><%= set.reps %></td>
       <td><%= set.volume %></td>
+      <td><a href="/delete_exercise/<%= set.id %>">Delete</a></td>
     </tr>
     <% end %>
   </table>
