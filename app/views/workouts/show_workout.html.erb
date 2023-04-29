@@ -1,0 +1,43 @@
+<h1><%= @workout.name %></h1>
+<p>Completed on: <%= @workout.completed_on %></p>
+
+<h2>Exercises</h2>
+<% @exercises_in_workout.each do |exercise| %>
+  <p><%= exercise %>
+  <table border="1px solid black">
+    <tr>
+      <th>Set</th>
+      <th>Weight (lbs)</th>
+      <th>Reps</th>
+      <th>Volume (lbs)</th>
+    </tr>
+
+    <% Exercise.where({ :movement_id => exercise }).each do |set| %>
+    <tr>
+      <td><%= set.set %></td>
+      <td><%= set.weight %></td>
+      <td><%= set.reps %></td>
+      <td><%= set.volume %></td>
+    </tr>
+    <% end %>
+  </table>
+    
+  </ol>
+<% end %>
+
+<h2>Add Exercise</h1>
+<form action="/add_new_workout" method="post">
+  <input type="hidden" name="param_workout_id" id="workout_id" value="<%= @workout.id %>">
+  <label for="exercise">Select an exercise:</label>
+  <input type="text" name="exercise" id="param_exercise">
+</form>
+
+<h2>Volume</h2>
+
+<% @exercises_in_workout.each do |exercise| %>
+  <p><%= exercise %></p>
+  <ul>
+   <li>Volume today: <%= Exercise.where({ :movement_id => exercise }).sum(:volume) %></p></li>
+   <li>Volume last time (date): </li>
+  </ul>
+<% end %>
